@@ -1,0 +1,14 @@
+create table cliente (id bigint not null auto_increment, cpf varchar(11), data_nascimento date, email varchar(40), nome varchar(50) not null, telefone varchar(13), usuario varchar(255), endereco_bairro varchar(40), endereco_cep varchar(8), endereco_cidade varchar(255), endereco_complemento varchar(40), endereco_estado varchar(2), endereco_logradouro varchar(255), endereco_numero varchar(10), primary key (id)) engine=InnoDB;
+create table cozinha (id bigint not null auto_increment, nome varchar(255) not null, primary key (id)) engine=InnoDB;
+create table item_pedido (id integer not null auto_increment, observacao varchar(255), preco_total decimal(19,2), preco_unitario decimal(19,2), quantidade integer, produto_id bigint, primary key (id)) engine=InnoDB;
+create table pedido (id bigint not null auto_increment, data_atualizacao datetime not null, data_cancelamento date, data_confirmacao date, data_criacao datetime not null, data_entrega date, status_pedido integer, sub_total decimal(19,2), taxa_frete decimal(19,2), valor_total decimal(19,2), cliente_id bigint, primary key (id)) engine=InnoDB;
+create table pedido_item_pedido (pedido_id bigint not null, item_pedido_id integer not null) engine=InnoDB;
+create table produto (id bigint not null auto_increment, ativo bit, descricao varchar(255), nome varchar(255), preco decimal(19,2), restaurante_id bigint, primary key (id)) engine=InnoDB;
+create table restaurante (id bigint not null auto_increment, descricao varchar(100), nome varchar(40) not null, cozinha_id bigint not null, primary key (id)) engine=InnoDB;
+alter table pedido_item_pedido add constraint UK_dh9q1xfnblq6i6mcut16wq28h unique (item_pedido_id);
+alter table item_pedido add constraint FKtk55mn6d6bvl5h0no5uagi3sf foreign key (produto_id) references produto (id);
+alter table pedido add constraint FK30s8j2ktpay6of18lbyqn3632 foreign key (cliente_id) references cliente (id);
+alter table pedido_item_pedido add constraint FK42f51fj53l92vu2h9dl71nlmr foreign key (item_pedido_id) references item_pedido (id);
+alter table pedido_item_pedido add constraint FKchgyfxkh0mqinxtk2s71j81vs foreign key (pedido_id) references pedido (id);
+alter table produto add constraint FKb9jhjyghjcn25guim7q4pt8qx foreign key (restaurante_id) references restaurante (id);
+alter table restaurante add constraint FK76grk4roudh659skcgbnanthi foreign key (cozinha_id) references cozinha (id);
