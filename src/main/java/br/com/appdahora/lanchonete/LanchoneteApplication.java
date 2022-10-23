@@ -10,4 +10,5 @@ public class LanchoneteApplication {
 		SpringApplication.run(LanchoneteApplication.class, args);
 	}
 
+
 }
