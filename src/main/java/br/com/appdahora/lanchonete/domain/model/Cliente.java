@@ -22,6 +22,7 @@ public class Cliente extends Pessoa{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @JsonIgnore
+    //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @Embedded
     private Endereco endereco;
     @JsonIgnore
